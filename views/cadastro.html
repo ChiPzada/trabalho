@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title>Cadastro de Produtos</title>
+  </head>
+  <body>
+    <header>
+      <h1>Bem-vindo, <%= user %></h1>
+      <p>Último acesso: <%= lastAccess %></p>
+    </header>
+
+    <main>
+      <section>
+        <h2>Cadastrar Produto</h2>
+        <form action="/cadastro" method="POST">
+          <input
+            type="text"
+            name="barcode"
+            placeholder="Código de Barras"
+            required
+            aria-label="Código de Barras"
+          />
+          <input
+            type="text"
+            name="description"
+            placeholder="Descrição"
+            required
+            aria-label="Descrição do Produto"
+          />
+          <input
+            type="number"
+            step="0.01"
+            name="costPrice"
+            placeholder="Preço de Custo"
+            required
+            aria-label="Preço de Custo"
+          />
+          <input
+            type="number"
+            step="0.01"
+            name="salePrice"
+            placeholder="Preço de Venda"
+            required
+            aria-label="Preço de Venda"
+          />
+          <input
+            type="date"
+            name="expiryDate"
+            required
+            aria-label="Data de Validade"
+          />
+          <input
+            type="number"
+            name="stock"
+            placeholder="Quantidade em Estoque"
+            required
+            aria-label="Quantidade em Estoque"
+          />
+          <input
+            type="text"
+            name="manufacturer"
+            placeholder="Fabricante"
+            required
+            aria-label="Nome do Fabricante"
+          />
+          <button type="submit">Cadastrar</button>
+        </form>
+      </section>
+
+      <section>
+        <h2>Produtos Cadastrados</h2>
+        <% if (produtos.length > 0) { %>
+        <table>
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Descrição</th>
+              <th>Preço de Custo</th>
+              <th>Preço de Venda</th>
+              <th>Validade</th>
+              <th>Qtd</th>
+              <th>Fabricante</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% produtos.forEach(produto => { %>
+            <tr>
+              <td><%= produto.barcode %></td>
+              <td><%= produto.description %></td>
+              <td>R$ <%= produto.costPrice.toFixed(2) %></td>
+              <td>R$ <%= produto.salePrice.toFixed(2) %></td>
+              <td><%= produto.expiryDate %></td>
+              <td><%= produto.stock %></td>
+              <td><%= produto.manufacturer %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+        <% } else { %>
+          <p>Nenhum produto cadastrado ainda.</p>
+        <% } %>
+      </section>
+    </main>
+  </body>
+</html>
